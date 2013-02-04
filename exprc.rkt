@@ -1,6 +1,6 @@
 #lang plai-typed
-;;;; Interpreter for simple arithmetics expressions with conditionals
-;;;; Copyright 2012 - Humberto Ortiz-Zuazaga <humberto.ortiz@upr.edu>
+;;;; Interpreter for simple arithmetic expressions with conditionals
+;;;; Copyright 2013 - Humberto Ortiz-Zuazaga <humberto.ortiz@upr.edu>
 ;;;;
 ;;;; This program is free software: you can redistribute it and/or modify
 ;;;; it under the terms of the GNU General Public License as published by
@@ -18,15 +18,15 @@
 ;;;; Chapter 2.4
 ;;;; http://cs.brown.edu/courses/cs173/2012/book/Everything__We_Will_Say__About_Parsing.html#%28part._first-parser%29
 
-(define-type ArithC
+(define-type ExprC
   [numC (n : number)]
-  [plusC (l : ArithC) (r : ArithC)]
-  [multC (l : ArithC) (r : ArithC)]
+  [plusC (l : ExprC) (r : ExprC)]
+  [multC (l : ExprC) (r : ExprC)]
   ;; Add conditional
-  [if0C (t : ArithC) (e1 : ArithC) (e2 : ArithC)])
+  [if0C (t : ExprC) (e1 : ExprC) (e2 : ExprC)])
 
 ;;;; parser for arithmetic expressions in s-expressions
-(define (parse [s : s-expression]) : ArithC
+(define (parse [s : s-expression]) : ExprC
   (cond
     [(s-exp-number? s) (numC (s-exp->number s))]
     [(s-exp-list? s)
@@ -42,8 +42,8 @@
 ;;;; Chapter 3.2
 ;;;; http://cs.brown.edu/courses/cs173/2012/book/first-interp.html#%28part._.Writing_an_.Interpreter%29
 
-(define (interp [a : ArithC]) : number
-  (type-case ArithC a
+(define (interp [a : ExprC]) : number
+  (type-case ExprC a
     [numC (n) n]
     [plusC (l r) (+ (interp l) (interp r))]
     [multC (l r) (* (interp l) (interp r))]
