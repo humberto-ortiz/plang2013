@@ -1,5 +1,19 @@
 #lang plai-typed
-;;;; parser for arithmetic expressions in s-expressions
+;;;; Interpreter for simple arithmetics expressions with conditionals
+;;;; Copyright 2012 - Humberto Ortiz-Zuazaga <humberto.ortiz@upr.edu>
+;;;;
+;;;; This program is free software: you can redistribute it and/or modify
+;;;; it under the terms of the GNU General Public License as published by
+;;;; the Free Software Foundation, either version 3 of the License, or
+;;;; (at your option) any later version.
+;;;;
+;;;; This program is distributed in the hope that it will be useful,
+;;;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;;;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;;;; GNU General Public License for more details.
+;;;;
+;;;; You should have received a copy of the GNU General Public License
+;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ;;;; Chapter 2.4
 ;;;; http://cs.brown.edu/courses/cs173/2012/book/Everything__We_Will_Say__About_Parsing.html#%28part._first-parser%29
@@ -11,6 +25,7 @@
   ;; Add conditional
   [if0C (t : ArithC) (e1 : ArithC) (e2 : ArithC)])
 
+;;;; parser for arithmetic expressions in s-expressions
 (define (parse [s : s-expression]) : ArithC
   (cond
     [(s-exp-number? s) (numC (s-exp->number s))]
