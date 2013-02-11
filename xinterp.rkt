@@ -1,35 +1,35 @@
-#lang plai
+#lang plai-typed
 ;; login : <YOUR-PIN-HERE>
 
 (define-type Binding
-  [binding (name symbol?) (named-expr CFWAE?)])
+  [binding (name : symbol) (named-expr : CFWAE)])
 
 (define-type CFWAE
-  [num (n number?)]
-  [binop (op procedure?) (lhs CFWAE?) (rhs CFWAE?)]
-  [with (lob (listof Binding?)) (body CFWAE?)]
-  [id (name symbol?)]
-  [if0 (c CFWAE?) (t CFWAE?) (e CFWAE?)]
-  [fun (args (listof symbol?)) (body CFWAE?)]
-  [app (f CFWAE?) (args (listof CFWAE?))])
+  [num (n : number)]
+  [binop (op : [number number -> number]) (lhs : CFWAE) (rhs : CFWAE)]
+  [with (lob : (listof Binding)) (body : CFWAE)]
+  [id (name : symbol)]
+  [if0 (c : CFWAE) (t : CFWAE) (e : CFWAE)]
+  [fun (args : (listof symbol)) (body : CFWAE)]
+  [app (f : CFWAE) (args : (listof CFWAE))])
 
 (define-type Env
   [mtEnv]
-  [anEnv (name symbol?) (value CFWAE-Value?) (env Env?)])
+  [anEnv (name : symbol) (value : CFWAE-Value) (env : Env)])
 
 (define-type CFWAE-Value
-  [numV (n number?)]
-  [closureV (params (listof symbol?))
-            (body CFWAE?)
-            (env Env?)])
+  [numV (n : number)]
+  [closureV (params : (listof symbol))
+            (body : CFWAE)
+            (env : Env)])
 
 ;; parse : expression -> CFWAE
 ; This procedure parses an expression into a CFWAE
-(define (parse sexp)
-  (...))
+(define (parse [sexp : s-expression]) : CFWAE
+  (num 0))
 
 ;; interp : CFWAE -> CFWAE-Value
 ;; This procedure evaluates a CFWAE expression, producing a CFWAE-Value.
-(define (interp expr)
-  (...))
+(define (interp [expr : CFWAE]) : CFWAE-Value
+  (numV 0))
 
