@@ -16,7 +16,7 @@
     [StrC (s) (v*s (StrV s) store)]  ;;Alex Santos
     [TrueC () (v*s (TrueV) store)]   ;;Yamil Asusta
     [FalseC () (v*s (FalseV) store)] ;;Yamil Asusta
-    
+    [FuncC (Lsym mybody) (v*s (ClosureV Lsym mybody env) store)]
     
     [else (interp-error (string-append "Haven't covered a case yet:"
                                        (to-string exprC)))]))
@@ -33,3 +33,7 @@
 (test (interp (TrueC)) (TrueV))
 (test (interp (FalseC)) (FalseV))
 
+(test (interp (FuncC (list 'x 'y) (StrC "Dembow"))) (ClosureV (list 'x 'y) (StrC "Dembow") empty)) 
+(test (interp (FuncC empty (NumC 4))) (ClosureV empty (NumC 4) empty))  
+;(interp(IfC (FalseC) (NumC 1) (StrC "hola")))
+;(interp (FuncC empty (NumC 4)))
